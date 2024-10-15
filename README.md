@@ -1,5 +1,3 @@
-![375967791-1756b603-2ad3-4f09-9937-692da74b0e1a](https://github.com/user-attachments/assets/e2a2cb42-b9bc-48e0-a7ff-254aafc6d58d)# Implementation-of-Logistic-Regression-Model-to-Predict-the-Placement-Status-of-Student
-
 ## AIM:
 To write a program to implement the the Logistic Regression Model to Predict the Placement Status of Student.
 
@@ -51,8 +49,8 @@ dataset["status"]=dataset["status"].astype('category')
 dataset["hsc_s"]=dataset["hsc_s"].astype('category')
 dataset.dtypes
 ```
-![the![375967898-c25292fe-796a-4671-9841-48fc146e0bb2](https://github.com/user-attachments/assets/5ebed7b6-c099-432e-a88c-2fee785d8117)
- Logistic Regression Model to Predict the Placement Status of Student](sam.png)
+![image](https://github.com/user-attachments/assets/fa4580ad-0b63-473a-b972-729d5bb40048)
+
 ```
 dataset["gender"]=dataset["gender"].cat.codes
 dataset["ssc_b"]=dataset["ssc_b"].cat.codes
