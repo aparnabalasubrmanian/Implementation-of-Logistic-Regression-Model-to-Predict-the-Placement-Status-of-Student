@@ -31,8 +31,8 @@ STEP 9 : End
 ```
 /*
 Program to implement the the Logistic Regression Model to Predict the Placement Status of Student.
-Developed by: HARISH RAGAV S
-RegisterNumber:  212222110013
+Developed by: APARNA RB
+RegisterNumber:  212222220005
 */
 
 
