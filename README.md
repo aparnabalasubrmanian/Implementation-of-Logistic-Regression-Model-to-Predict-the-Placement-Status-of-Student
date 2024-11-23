@@ -35,78 +35,56 @@ Developed by: APARNA RB
 RegisterNumber:  212222220005
 */
 
-
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-# Load the data
-data = pd.read_csv("Placement_Data.csv")
+dataset = pd.read_csv('Placement_Data_Full_Class.csv')
+dataset.head()
+dataset.info()
 
-# Print the entire DataFrame
-print("Placement Data:")
-print(data)
+dataset = dataset.drop('sl_no', axis=1);
+dataset.info()
 
-# Print only the salary column (if it exists)
-if 'salary' in data.columns:
-    print("\nSalary Data:")
-    print(data['salary'])
-else:
-    print("\n'Salary' column not found in DataFrame")
+dataset["gender"] = dataset["gender"].astype('category')
+dataset["ssc_b"] = dataset["ssc_b"].astype('category')
+dataset["hsc_b"] = dataset["hsc_b"].astype('category')
+dataset["degree_t"] = dataset["degree_t"].astype('category')
+dataset["workex"] = dataset["workex"].astype('category')
+dataset["specialisation"] = dataset["specialisation"].astype('category')
+dataset["status"] = dataset["status"].astype('category')
+dataset["hsc_s"] = dataset["hsc_s"].astype('category')
+dataset.dtypes
 
-# Remove unnecessary columns (if any)
-data1 = data.drop(["salary"], axis=1, errors='ignore')
 
-# Check for missing values
-print("\nMissing Values Check:")
-print(data1.isnull().sum())
+dataset["gender"]=dataset["gender"].cat.codes
+dataset["ssc_b"]=dataset["ssc_b"].cat.codes
+dataset["hsc_b"]=dataset["hsc_b"].cat.codes
+dataset["degree_t"]=dataset["degree_t"].cat.codes
+dataset["workex"]=dataset["workex"].cat.codes
+dataset["specialisation"]=dataset["specialisation"].cat.codes
+dataset["status"]=dataset["status"].cat.codes
+dataset["hsc_s"]=dataset["hsc_s"].cat.codes
+dataset
 
-# Check for duplicate rows
-print("\nDuplicate Rows Check:")
-print(data1.duplicated().sum())
+x = dataset.iloc[:,:-1]
+x
 
-# Print the cleaned data
-print("\nCleaned Data:")
-print(data1)
+y=dataset.iloc[:,-1]
+y
 
-# Initialize LabelEncoder
-le = LabelEncoder()
-
-# Encode categorical columns
-categorical_columns = ['workex', 'status', 'hsc_s']  # List of categorical columns to encode
-for column in categorical_columns:
-    if column in data1.columns:
-        data1[column] = le.fit_transform(data1[column])
-    else:
-        print(f"'{column}' column not found in DataFrame")
-
-# Prepare features and target
-x = data1.drop('status', axis=1, errors='ignore')  # Features
-y = data1['status']  # Target
-
-# Split the data
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+clf = LogisticRegression()
+clf.fit(x_train, y_train)
+y_pred=clf.predict(x_test)
+y_pred
 
-# Train the model
-lr = LogisticRegression(solver="liblinear")
-lr.fit(x_train, y_train)
-y_pred = lr.predict(x_test)
+from sklearn.metrics import accuracy_score, confusion_matrix
+cf = confusion_matrix(y_test, y_pred)
+cf
 
-# Evaluate the model
-accuracy = accuracy_score(y_test, y_pred)
-confusion = confusion_matrix(y_test, y_pred)
-classification_report1 = classification_report(y_test, y_pred)
-
-print("\nAccuracy:", accuracy)
-print("Confusion Matrix:\n", confusion)
-print("Classification Report:\n", classification_report1)
-
-# Print the y_pred array
-print("\nY Prediction Array:")
-print(y_pred)
-
+accuracy=accuracy_score(y_test,y_pred)
+accuracy
 ```
 
 ## Output:
